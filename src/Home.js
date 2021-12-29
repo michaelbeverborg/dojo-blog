@@ -12,15 +12,22 @@ const Home = () => {
       id: 3,
     },
   ]);
+
+  const handleDelete = id => {
+    const newBlogs = blogs.filter(blog => blog.id !== id);
+    setBlogs(newBlogs);
+  };
+
   return (
     <div className="home">
       {/* Blogs in BlogList.js is the blogs from here, send as argument */}
-      <BlogList blogs={blogs} title="All the blogs" />'
-      {/* Filter through blogs */}
+      <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+
+      {/* Filter through blogs 
       <BlogList
         blogs={blogs.filter(blog => blog.author === "mario")}
         title="Mario's blogs"
-      />
+      />*/}
     </div>
   );
 };
