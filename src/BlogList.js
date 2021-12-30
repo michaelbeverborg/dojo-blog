@@ -8,6 +8,7 @@ const BlogList = ({ blogs, title, handleDelete }) => {
         <div className="blog-preview" key={blog.id}>
           <h2>{blog.title}</h2>
           <p>Written by {blog.author}</p>
+          {/* When clicked do handleDelete with the id of the clicked blog, gets handled in Home.js */}
           <button onClick={() => handleDelete(blog.id)}>delete blog</button>
         </div>
       ))}

@@ -13,8 +13,11 @@ const Home = () => {
     },
   ]);
 
+  /* Argument 'id' is the blog.id that's been clicked on from BlogList.js */
   const handleDelete = id => {
+    /* The new blogs that the blogs array becomes is an array without the deleted(clicked) blog */
     const newBlogs = blogs.filter(blog => blog.id !== id);
+    /* setBlogs is the useState function from blogs array and overwrites the array with newBlogs */
     setBlogs(newBlogs);
   };
 
