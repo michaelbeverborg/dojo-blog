@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
 
 const Home = () => {
@@ -15,11 +15,17 @@ const Home = () => {
 
   /* Argument 'id' is the blog.id that's been clicked on from BlogList.js */
   const handleDelete = id => {
-    /* The new blogs that the blogs array becomes is an array without the deleted(clicked) blog */
+    /* The new blogs that the blogs array becomes is an array without (!==) the deleted(clicked) blog */
     const newBlogs = blogs.filter(blog => blog.id !== id);
     /* setBlogs is the useState function from blogs array and overwrites the array with newBlogs */
     setBlogs(newBlogs);
   };
+
+  // useEffect runs at initialization of the component AND everytime the date (useState) changes
+  useEffect(() => {
+    console.log("useEffect ran");
+    console.log(blogs);
+  });
 
   return (
     <div className="home">
