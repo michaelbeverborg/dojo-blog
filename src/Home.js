@@ -21,16 +21,22 @@ const Home = () => {
     setBlogs(newBlogs);
   };
 
+  const [name, setName] = useState("mario");
+
   // useEffect runs at initialization of the component AND everytime the date (useState) changes
   useEffect(() => {
     console.log("useEffect ran");
     console.log(blogs);
-  });
+    // An empty array dependency makes the useEffect only run once at initialization
+    // With name inside, it will run also when name changes
+  }, [name]);
 
   return (
     <div className="home">
       {/* Blogs in BlogList.js is the blogs from here, send as argument */}
       <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+      <button onClick={() => setName("luigi")}>Change name</button>
+      <p>{name}</p>
 
       {/* Filter through blogs 
       <BlogList
