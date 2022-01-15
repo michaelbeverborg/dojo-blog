@@ -4,6 +4,7 @@ import BlogList from "./BlogList";
 const Home = () => {
   const [blogs, setBlogs] = useState(null);
   const [isPending, setPending] = useState(true);
+  const [error, setError] = useState(null);
 
   /* Argument 'id' is the blog.id that's been clicked on from BlogList.js */
   const handleDelete = id => {
@@ -19,6 +20,10 @@ const Home = () => {
   useEffect(() => {
     fetch("http://localhost:8000/blogs")
       .then(res => {
+        // Check status of response
+        if (!res.ok) {
+          throw Error("Could not fetch data");
+        }
         // response received and return it as json
         return res.json();
       })
@@ -27,6 +32,12 @@ const Home = () => {
       .then(data => {
         setBlogs(data);
         setPending(false);
+        setError(null);
+      })
+      // Catch error. Doesn't work if for example the request does reach the server but the endpoint doesn't exist
+      .catch(err => {
+        setPending(false);
+        setError(err.message);
       });
     // An empty array dependency makes the useEffect only run once at initialization
     // With name inside, it will run also when name changes
@@ -34,6 +45,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
 
       {/* Blogs in BlogList.js is the blogs from here, send as argument */}
