@@ -1,21 +1,13 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <nav className="navbar">
       <h1>The Dojo Blog</h1>
       <div className="links">
-        <a href="/">Home</a>
-        {/* Outer braces represent a dynamic value 
-            Inner braces are the object */}
-        <a
-          href="/create"
-          style={{
-            color: "white",
-            backgroundColor: "#f13535",
-            borderRadius: "8px",
-          }}
-        >
-          New Blog
-        </a>
+        {/** React router replaces anchor tags with Link so it intercepts the server request */}
+        <Link to="/">Home</Link>
+        <Link to="/create">New Blog</Link>
       </div>
     </nav>
   );

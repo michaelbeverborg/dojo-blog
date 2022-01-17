@@ -8,27 +8,38 @@ const useFetch = url => {
 
   // useEffect runs at initialization of the component AND everytime the date (useState) changes
   useEffect(() => {
-    fetch(url)
-      .then(res => {
-        // Check status of response
-        if (!res.ok) {
-          throw Error("Could not fetch data");
-        }
-        // response received and return it as json
-        return res.json();
-      })
-      // below .then happens after the return from .then above happens
-      // put data in a function that puts it in setBlogs
-      .then(data => {
-        setData(data);
-        setPending(false);
-        setError(null);
-      })
-      // Catch error. Doesn't work if for example the request does reach the server but the endpoint doesn't exist
-      .catch(err => {
-        setPending(false);
-        setError(err.message);
-      });
+    const abortCont = new AbortController();
+
+    // setTimeout to simulate server request
+    setTimeout(() => {
+      fetch(url, { signal: abortCont.signal })
+        .then(res => {
+          // Check status of response
+          if (!res.ok) {
+            throw Error("Could not fetch data");
+          }
+          // response received and return it as json
+          return res.json();
+        })
+        // below .then happens after the return from .then above happens
+        // put data in a function that puts it in setBlogs
+        .then(data => {
+          setData(data);
+          setPending(false);
+          setError(null);
+        })
+        // Catch error. Doesn't work if for example the request does reach the server but the endpoint doesn't exist
+        .catch(err => {
+          if (err.name === "AbortError") {
+            console.log("Fetch aborted");
+          } else {
+            setPending(false);
+            setError(err.message);
+          }
+        });
+    }, 1000);
+
+    return () => abortCont.abort();
     // An empty array dependency makes the useEffect only run once at initialization
     // With url inside, it will run also when url changes
   }, [url]);
