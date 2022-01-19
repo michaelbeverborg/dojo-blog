@@ -5,6 +5,7 @@ import Home from "./Home";
 // React will then inject the page into the browser.
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Create from "./Create";
+import BlogDetails from "./BlogDetails";
 
 // Function starts with a capital letter
 // JSX function
@@ -21,6 +22,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<Create />} />
+            {/** Add :id as a variable in the link */}
+            <Route path="/blogs/:id" element={<BlogDetails />} />
           </Routes>
         </div>
       </div>
