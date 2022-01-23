@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import Home from "./Home";
+import NotFound from "./NotFound";
 
 // The react router intercepts requests to the server, for example when another page is clicked.
 // React will then inject the page into the browser.
@@ -24,6 +25,8 @@ function App() {
             <Route path="/create" element={<Create />} />
             {/** Add :id as a variable in the link */}
             <Route path="/blogs/:id" element={<BlogDetails />} />
+            {/** Catch any page that doesn't exist */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
