@@ -1,10 +1,12 @@
 import { useState } from "react/cjs/react.development";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("mario");
   const [isPending, setPending] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = e => {
     // prevent the page from refreshing
@@ -22,6 +24,8 @@ const Create = () => {
     }).then(() => {
       console.log("blog added");
       setPending(false);
+      // Go back to the homepage after the new blog is added
+      navigate("/");
     });
   };
 
